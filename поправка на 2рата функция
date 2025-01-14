@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int InitializeDeck(vector<string>& initializeDeck) 
+{
+    const string values[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}; //въвеждане на стойностите на картите
+    for (int i = 0; i < 4; i++)  // до 4 заради 4-те бои ( от всеки вид има по 4)
+    {
+        for (int j = 0; j < 13; j++)  // 13 вида (1,2,3...,J,Q,K)
+        {
+            initializeDeck.push_back(values[j]); // добавяне на картите във вектора
+        }
+    }
+}
+
+// Разбъркване на тестето
+void shuffleDeck(vector<string>& deck) {
+    //използваме функцията InitializeDecк за да попълним тестето с 52те карти (deck векторът)
+    InitializeDeck(deck);
+
+    //разбъркваме тестето в 2 фази-  по-добро разбъркване
+    // 1.създаваме генератор на случайни числа на базата на текущото време
+    srand(static_cast<unsigned int>(time(0))); //последователността на генериране на случайни числа всеки път е случайна при стартиране на програмата
+    for (int i = 0; i < deck.size(); i++) //обхождаме числата 
+    {
+        int j = i + rand() % (deck.size() - i); // генерира се случайно число от i до края (51) включително
+        swap(deck[i], deck[j]);  // 2.размяна на карта с карта със случен индекс
+    }
+}
+
+
+
+    
+    int main() {
+    }
