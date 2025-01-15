@@ -1,0 +1,9 @@
+
+// показване на картите на играчите
+void showHand(const vector<string>& hand) {
+    // обхождаме ръката и показваме картите
+    for (const string& card : hand) {
+        cout << card << " "; // показваме всяка карта
+    }
+    cout << endl; // нов ред след показване на картите
+}
