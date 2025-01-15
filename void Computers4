@@ -1,0 +1,23 @@
+// ако компютърът има 4 еднакви карти, ги премахва
+void Computers4(vector<string>& computerCards) {
+    // обхождаме всички възможни стойности на картите
+    for (int i = 0; i < 13; i++) {
+        const string& value = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" }[i];
+        int count = 0;
+        // броим колко пъти има същата карта в ръката на компютъра
+        for (int j = 0; j < computerCards.size(); j++) {
+            if (computerCards[j] == value) {
+                count++; // увеличаваме броя
+            }
+        }
+        // ако имаме 4 еднакви карти
+        if (count == 4) {
+            cout << "Computer has collected all four " << value << " cards!" << endl; // съобщаваме, че компютърът е събрал 4 еднакви карти
+            // премахваме всички тези карти от ръката на компютъра
+            for (int k = 0; k < 4; k++) {
+                computerCards.erase(remove(computerCards.begin(), computerCards.end(), value), computerCards.end());
+            }
+            break; // прекратяваме търсенето, защото вече сме намерили и премахнали 4 карти
+        }
+    }
+}
