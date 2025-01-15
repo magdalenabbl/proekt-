@@ -1,8 +1,11 @@
-// показване на картите на играчите
-void showHand(const vector<string>& hand) {
-    // обхождаме ръката и показваме картите
+// проверка дали дадена карта съществува в ръката
+bool hasCardType(const vector<string>& hand, const string& cardType) {
+    // обхождаме всички карти в ръката
     for (int i = 0; i < hand.size(); i++) {
-        cout << hand[i] << " "; // показваме всяка карта
+        // ако намерим картата
+        if (hand[i] == cardType) {
+            return true; // връщаме true, ако картата е намерена
+        }
     }
-    cout << endl; // нов ред след показване на картите
+    return false; // ако не е намерена картата, връщаме false
 }
