@@ -1,0 +1,15 @@
+// функция за теглене на случайна карта от тестето
+void drawRandomCard(vector<string>& deck, vector<string>& hand, const string& currentPlayer) {
+    // проверка дали има карти в тестето
+    if (!deck.empty()) {
+        string drawnCard = deck.back(); // вземаме последната карта от тестето
+        deck.pop_back(); // премахваме картата от тестето
+        hand.push_back(drawnCard); // добавяме картата в ръката на играча
+        cout << currentPlayer << " draws a " << drawnCard << " from the deck." << endl; // съобщаваме каква карта е изтеглена
+        cout << currentPlayer << "'s new hand: "; // показваме новата ръка на играча
+        showHand(hand); // показваме картите в ръката на играча
+    }
+    else {
+        cout << "The deck is empty. No card can be drawn." << endl; // ако няма карти в тестето
+    }
+}
