@@ -1,0 +1,14 @@
+void dealCards(vector<string>& deck, vector<string>& playerCards, vector<string>& computerCards, int numCards) {
+    // обхождаме от 0 до numCards карти
+    for (int i = 0; i < numCards; i++) { 
+        // проверка дали тестето не е празно
+        if (!deck.empty()) { 
+            playerCards.push_back(deck.back()); // добавяме последната карта в ръката на играча
+            deck.pop_back(); // премахваме последната карта от тестето
+        }
+        if (!deck.empty()) { 
+            computerCards.push_back(deck.back()); // добавяме последната карта в ръката на компютъра
+            deck.pop_back(); // премахваме последната карта от тестето
+        }
+    }
+}
