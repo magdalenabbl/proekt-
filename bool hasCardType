@@ -1,0 +1,11 @@
+// проверка дали дадена карта съществува в ръката
+bool hasCardType(const vector<string>& hand, const string& cardType) {
+    // обхождаме всички карти в ръката
+    for (const string& card : hand) {
+        // ако намерим картата
+        if (card == cardType) {
+            return true; // връщаме true, ако картата е намерена
+        }
+    }
+    return false; // ако не е намерена картата, връщаме false
+}
