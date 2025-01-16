@@ -1,0 +1,297 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+// Инициализация на тестето с карти
+void initializeDeck(vector<string>& deck) {
+    const string values[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 13; j++) {
+            deck.push_back(values[j]);
+        }
+    }
+}
+
+// Разбъркване на тестето
+void shuffleDeck(vector<string>& deck) {
+    srand(static_cast<unsigned int>(time(0)));
+    for (int i = 0; i < deck.size(); i++) {
+        int j = rand() % (i + 1);
+        swap(deck[i], deck[j]);
+    }
+}
+
+// Раздаване на карти на играчите
+void dealCards(vector<string>& deck, vector<string>& playerCards, vector<string>& computerCards, int numCards) {
+    for (int i = 0; i < numCards; i++) {
+        if (!deck.empty()) {
+            playerCards.push_back(deck.back());
+            deck.pop_back();
+        }
+        if (!deck.empty()) {
+            computerCards.push_back(deck.back());
+            deck.pop_back();
+        }
+    }
+}
+
+void showHand(const vector<string>& hand) {
+    for (const string& card : hand) {
+        cout << card << " ";
+    }
+    cout << endl;
+}
+
+bool hasCardType(const vector<string>& hand, const string& cardType) {
+    for (const string& card : hand) {
+        if (card == cardType) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Функция за теглене на случайна карта
+void drawRandomCard(vector<string>& deck, vector<string>& hand, const string& currentPlayer) {
+    if (!deck.empty()) {
+        string drawnCard = deck.back();
+        deck.pop_back();
+        hand.push_back(drawnCard);
+        cout << currentPlayer << " draws a " << drawnCard << " from the deck." << endl;
+        cout << currentPlayer << "'s new hand: ";
+        showHand(hand);
+    }
+    else {
+        cout << "The deck is empty. No card can be drawn." << endl;
+    }
+}
+/*
+// Функция за събиране на 4 карти от един вид за играча
+void Players4(vector<string>& playerCards, vector<string>& collectedCards) {
+    for (const string& value : { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" }) {
+        int count = 0;
+        for (const string& card : playerCards) {
+            if (card == value) {
+                count++;
+            }
+        }
+        if (count == 4) {
+            cout << "Player has collected all four " << value << " cards!" << endl;
+            collectedCards.push_back(value);  // Добавяме към колекцията
+
+            // Премахваме картите от ръката на играча без erase/remove
+            vector<string> newPlayerCards;
+            for (const string& card : playerCards) {
+                if (card != value) {
+                    newPlayerCards.push_back(card);
+                }
+            }
+            playerCards = newPlayerCards;
+
+            break;
+        }
+    }
+}
+*/
+
+// Функция за събиране на 4 карти от един вид за играча
+void Players4(vector<string>& playerCards, vector<string>& collectedCards) {
+    for (const string& value : { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" }) {
+        int count = 0;
+        for (const string& card : playerCards) {
+            if (card == value) {
+                count++;
+            }
+        }
+        if (count == 4) {
+            // Извеждаме съобщението
+            cout << "Player has collected all four " << value << " cards!" << endl;
+
+            string input;
+            while (true) {
+                cout << "Player, type '*' to confirm: ";
+                cin >> input;
+
+                if (input == "*") {
+                    // Добавяме картите към колекцията
+                    collectedCards.push_back(value);
+
+                    // Премахваме картите от ръката на играча без erase/remove
+                    vector<string> newPlayerCards;
+                    for (const string& card : playerCards) {
+                        if (card != value) {
+                            newPlayerCards.push_back(card);
+                        }
+                    }
+                    playerCards = newPlayerCards;
+
+                    cout << "Player has given the " << value << " cards." << endl;
+                    break;
+                }
+                else {
+                    cout << "Player did not confirm correctly." << endl;
+                }
+            }
+            break;
+        }
+    }
+}
+
+// Функция за събиране на 4 карти от един вид за компютъра
+void Computers4(vector<string>& computerCards, vector<string>& collectedCards) {
+    for (const string& value : { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" }) {
+        int count = 0;
+        for (const string& card : computerCards) {
+            if (card == value) {
+                count++;
+            }
+        }
+        if (count == 4) {
+            cout << " All four " << value << " has been collected!" << endl;
+            collectedCards.push_back(value);  // Добавяме към колекцията
+
+            // Премахваме картите от ръката на компютъра без erase/remove
+            vector<string> newComputerCards;
+            for (const string& card : computerCards) {
+                if (card != value) {
+                    newComputerCards.push_back(card);
+                }
+            }
+            computerCards = newComputerCards;
+
+            break;
+        }
+    }
+}
+
+// Функция за проверка дали играчът има карта от даден тип
+void askForCard(vector<string>& askerHand, vector<string>& responderHand, vector<string>& deck, const string& cardType, const string& currentPlayer, const string& otherPlayer, bool& continueAsking) {
+    if (!hasCardType(askerHand, cardType)) {
+        cout << currentPlayer << " cannot ask for a card they do not have." << endl;
+        return;
+    }
+
+    vector<string> cardsToGive;
+    for (int i = 0; i < responderHand.size(); i++) {
+        if (responderHand[i] == cardType) {
+            cardsToGive.push_back(responderHand[i]);
+        }
+    }
+
+    if (!cardsToGive.empty()) {
+        for (const string& card : cardsToGive) {
+            askerHand.push_back(card);
+        }
+
+        // Премахваме картите от ръката на съперника без erase/remove
+        vector<string> newResponderHand;
+        for (const string& card : responderHand) {
+            if (find(cardsToGive.begin(), cardsToGive.end(), card) == cardsToGive.end()) {
+                newResponderHand.push_back(card);
+            }
+        }
+        responderHand = newResponderHand;
+
+        cout << otherPlayer << " gives all " << cardType << " cards to " << currentPlayer << "." << endl;
+        cout << currentPlayer << "'s new hand: ";
+        showHand(askerHand);
+
+        continueAsking = true;
+    }
+    else {
+        cout << otherPlayer << " does not have any " << cardType << " cards." << endl;
+        drawRandomCard(deck, askerHand, currentPlayer);
+
+        if (!deck.empty() && askerHand.back() == cardType) {
+            cout << currentPlayer << " drew the card they asked for! Their turn continues." << endl;
+            continueAsking = true;
+        }
+        else {
+            continueAsking = false;
+        }
+    }
+}
+
+// Функция за хода на играча
+void playerTurn(vector<string>& playerCards, vector<string>& computerCards, vector<string>& deck, vector<string>& playerCollectedCards) {
+    cout << "Your turn. Your cards: ";
+    showHand(playerCards);
+
+    // Събиране на 4 карти за играча
+    Players4(playerCards, playerCollectedCards);
+
+    string cardType;
+    while (true) {
+        cout << "Enter the type of card you want to ask for: ";
+        cin >> cardType;
+        if (hasCardType(playerCards, cardType)) {
+            break;
+        }
+        else {
+            cout << "You do not have this card. Try again." << endl;
+        }
+    }
+
+    bool continueAsking = false;
+    askForCard(playerCards, computerCards, deck, cardType, "Player", "Computer", continueAsking);
+
+    if (continueAsking) {
+        playerTurn(playerCards, computerCards, deck, playerCollectedCards);
+    }
+}
+
+// Функция за хода на компютъра
+void computerTurn(vector<string>& computerCards, vector<string>& playerCards, vector<string>& deck, vector<string>& computerCollectedCards) {
+    if (computerCards.empty()) {
+        return;
+    }
+
+    // Събиране на 4 карти за компютъра
+    Computers4(computerCards, computerCollectedCards);
+
+    string cardType = computerCards[rand() % computerCards.size()];
+    cout << "Computer asks for: " << cardType << endl;
+
+    bool continueAsking = false;
+    askForCard(computerCards, playerCards, deck, cardType, "Computer", "Player", continueAsking);
+
+    if (continueAsking) {
+        computerTurn(computerCards, playerCards, deck, computerCollectedCards);
+    }
+}
+
+// Основна функция
+int main() {
+    vector<string> deck;
+    vector<string> playerCards;
+    vector<string> computerCards;
+    vector<string> playerCollectedCards;  // Колекция от събраните карти на играча
+    vector<string> computerCollectedCards;  // Колекция от събраните карти на компютъра
+
+    initializeDeck(deck);
+    shuffleDeck(deck);
+    dealCards(deck, playerCards, computerCards, 7);
+
+    while (!deck.empty()) {
+        playerTurn(playerCards, computerCards, deck, playerCollectedCards);
+        computerTurn(computerCards, playerCards, deck, computerCollectedCards);
+    }
+
+    // Изведи събраните карти
+    cout << "\nPlayer's collected cards: ";
+    for (const string& card : playerCollectedCards) {
+        cout << card << " ";
+    }
+    cout << endl;
+
+    cout << "Computer's collected cards: ";
+    for (const string& card : computerCollectedCards) {
+        cout << card << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
