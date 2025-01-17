@@ -1,0 +1,14 @@
+// Function to deal cards to both players
+void dealCards(vector<string>& deck, vector<string>& playerCards, vector<string>& computerCards, int numCards) {
+    // Deal a specific number of cards to both players
+    for (int i = 0; i < numCards; i++) {
+        if (!deck.empty()) {
+            playerCards.push_back(deck.back()); // Deal a card to the player
+            deck.pop_back(); // Remove the card from the deck
+        }
+        if (!deck.empty()) {
+            computerCards.push_back(deck.back()); // Deal a card to the computer
+            deck.pop_back(); // Remove the card from the deck
+        }
+    }
+}
