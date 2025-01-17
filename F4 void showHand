@@ -1,9 +1,8 @@
 // Function to display the cards in the hand
 void showHand(const vector<string>& hand) {
     // Iterate through each card in the hand
-    for (const string& card : hand) {
-        // Output the current card followed by a space
-        cout << card << " ";
+    for (int i = 0; i < hand.size(); i++) {
+        cout << hand[i] << " ";
     }
     // Add a new line after displaying all the cards
     cout << endl;
