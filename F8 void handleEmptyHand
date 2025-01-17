@@ -1,0 +1,10 @@
+// Function to handle the case when a player's hand is empty
+void handleEmptyHand(vector<string>& hand, vector<string>& deck, const string& currentPlayer) {
+    // Check if the player's hand is empty
+    if (isHandEmpty(hand)) {
+        // Notify that the player has no cards left in hand and will draw a card from the deck
+        cout << currentPlayer << " has no cards left in hand, drawing from deck." << endl;
+        // Call the function to draw a card from the deck and add it to the player's hand
+        drawCardFromDeck(deck, hand, currentPlayer);
+    }
+}
