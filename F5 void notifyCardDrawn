@@ -7,9 +7,8 @@ void notifyCardDrawn(const string& currentPlayer, const string& drawnCard, const
     cout << currentPlayer << "'s new hand: ";
     
     // Iterate through the player's hand and display each card
-    for (const string& card : hand) {
-        // Output the current card followed by a space for formatting
-        cout << card << " ";
+    for (int i = 0; i < hand.size(); i++) {
+        cout << hand[i] << " ";
     }
     
     // Add a new line after displaying all cards in the hand
