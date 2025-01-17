@@ -1,0 +1,18 @@
+// Function to draw a card from the deck and add it to the player's hand
+void drawCardFromDeck(vector<string>& deck, vector<string>& hand, const string& currentPlayer) {
+    // Check if the deck is not empty
+    if (!deck.empty()) {
+        // Get the top card from the deck (the last element)
+        string drawnCard = deck.back();
+        // Remove the drawn card from the deck
+        deck.pop_back();
+        // Add the drawn card to the player's hand
+        hand.push_back(drawnCard);
+        // Notify about the card being drawn and show the updated hand
+        notifyCardDrawn(currentPlayer, drawnCard, hand);
+    }
+    else {
+        // If the deck is empty, output a message
+        cout << "The deck is empty. No card can be drawn." << endl;
+    }
+}
