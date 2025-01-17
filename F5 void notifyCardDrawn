@@ -1,0 +1,17 @@
+// Function to notify that a player has drawn a card and display their updated hand
+void notifyCardDrawn(const string& currentPlayer, const string& drawnCard, const vector<string>& hand) {
+    // Display the current player's name and the card they have drawn
+    cout << currentPlayer << " draws a " << drawnCard << " from the deck." << endl;
+    
+    // Display the current player's updated hand
+    cout << currentPlayer << "'s new hand: ";
+    
+    // Iterate through the player's hand and display each card
+    for (const string& card : hand) {
+        // Output the current card followed by a space for formatting
+        cout << card << " ";
+    }
+    
+    // Add a new line after displaying all cards in the hand
+    cout << endl;
+}
