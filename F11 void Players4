@@ -1,0 +1,49 @@
+// Function to handle the collection of all four identical cards by a player
+void Players4(vector<string>& playerCards, vector<string>& collectedCards) {
+    // List of card values to check (from "2" to "A")
+    string cardValues[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+
+    for (int i = 0; i < 13; i++) {  // Loop through the card values array
+        string value = cardValues[i];
+        int count = 0;
+
+        // Count how many times the current card value appears in the player's hand
+        for (int j = 0; j < playerCards.size(); j++) {
+            if (playerCards[j] == value) {
+                count++;
+            }
+        }
+
+        // If the player has collected all four cards of the same value
+        if (count == 4) {
+            cout << "Player has collected all four " << value << " cards!" << endl;
+
+            string input;
+            while (true) {
+                cout << "Player, type '*' to confirm: ";
+                cin >> input;
+
+                if (input == "*") {
+                    // Add the collected cards to the collection
+                    collectedCards.push_back(value);
+
+                    // Create a new list of player cards, excluding the collected cards
+                    vector<string> newPlayerCards;
+                    for (int j = 0; j < playerCards.size(); j++) {
+                        if (playerCards[j] != value) {
+                            newPlayerCards.push_back(playerCards[j]);
+                        }
+                    }
+                    playerCards = newPlayerCards;
+
+                    cout << "Player has given the " << value << " cards." << endl;
+                    break;
+                }
+                else {
+                    cout << "Player did not confirm correctly." << endl;
+                }
+            }
+            break;  // Exit the loop after collecting the four cards of one value
+        }
+    }
+}
