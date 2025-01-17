@@ -1,0 +1,12 @@
+// Function to check if the player's hand contains a specific card type
+bool hasCardType(const vector<string>& hand, const string& cardType) {
+    // Iterate through each card in the player's hand
+    for (const string& card : hand) {
+        // If the current card matches the specified card type, return true
+        if (card == cardType) {
+            return true;
+        }
+    }
+    // If no card matches the specified type, return false
+    return false;
+}
