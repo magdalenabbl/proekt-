@@ -1,0 +1,21 @@
+// Function to draw a random card from the deck and add it to the player's hand
+void drawRandomCard(vector<string>& deck, vector<string>& hand, const string& currentPlayer) {
+    // Check if the deck is not empty
+    if (!deck.empty()) {
+        
+        string drawnCard = deck.back();
+        
+        deck.pop_back();
+        // Add the drawn card to the player's hand
+        hand.push_back(drawnCard);
+        
+        cout << currentPlayer << " draws a " << drawnCard << " from the deck." << endl;
+       
+        cout << currentPlayer << "'s new hand: ";
+        showHand(hand);  // Call the showHand function to display the current hand
+    }
+    else {
+        
+        cout << "The deck is empty. No card can be drawn." << endl;
+    }
+}
