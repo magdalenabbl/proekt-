@@ -1,0 +1,5 @@
+// Function to check if the player's hand is empty
+bool isHandEmpty(const vector<string>& hand) {
+    // Return true if the hand is empty, otherwise false
+    return hand.empty();
+}
