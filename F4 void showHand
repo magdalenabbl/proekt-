@@ -1,10 +1,10 @@
-// Функция за показване на картите в ръката
+// Function to display the cards in the hand
 void showHand(const vector<string>& hand) {
-    // Итерация през всяка карта в ръката
+    // Iterate through each card in the hand
     for (const string& card : hand) {
-        // Извеждане на текущата карта с интервал
+        // Output the current card followed by a space
         cout << card << " ";
     }
-    // Добавяне на нов ред след извеждането на всички карти
+    // Add a new line after displaying all the cards
     cout << endl;
 }
