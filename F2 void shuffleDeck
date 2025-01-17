@@ -1,0 +1,9 @@
+// Function to shuffle the deck of cards
+void shuffleDeck(vector<string>& deck) {
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
+    // Shuffle the deck using the Fisher-Yates algorithm
+    for (int i = 0; i < deck.size(); i++) {
+        int j = rand() % (i + 1); // Get a random index
+        swap(deck[i], deck[j]);  // Swap the cards
+    }
+}
